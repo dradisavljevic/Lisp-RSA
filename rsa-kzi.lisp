@@ -1,6 +1,5 @@
 ; Implementation of the few RSA based functions for a project
 ; Not recommended that they are used for serious encryption as they still need improvement
-; TODO : expand algorithm so that it works for non ascii strings
 
 ;Function that encrypts message through RSA for random numbers
 (defun rsa-blackbox-encrypt-kzi (message)
@@ -129,8 +128,7 @@
 	(defvar ecmessage)
 	(defvar rsabyte)
 	(setf ecmessage '(nil))
-	(setf message (ironclad:ascii-string-to-byte-array message))
-	(setf message (coerce message 'list))
+	(setf message (string-to-bytes message))
 	(setf n (* p q))
 	(setf totient (lcm (- p 1) (- q 1)))
 	(setf d (modular-multiplicative-inverse e totient))
@@ -139,7 +137,6 @@
 	)
 	 (setf ecmessage (remove nil ecmessage))
 	 (setf ecmessage (reverse ecmessage))
-	 (print ecmessage)
 	 (setf ecmessage (mapcar #'code-char ecmessage))
 	 (setf ecmessage (coerce ecmessage 'string))
 	 (return-from rsa-encrypt-kzi ecmessage)
@@ -149,7 +146,6 @@
 ))
 
 ;RSA decryption for given parameters on a byte array
-;TODO: implement same method on non ascii string
 (defun rsa-decrypt-kzi (bytes p q e)
 (if (isprime p) 
 (if (isprime q) 
@@ -162,7 +158,7 @@
 	(defvar dcmessage)
 	(defvar rsabyte)
 	(setf dcmessage '(nil))
-	(setf bytes (coerce bytes 'list))
+	(setf bytes (string-to-bytes bytes))
 	(setf n (* p q))
 	(setf totient (lcm (- p 1) (- q 1)))
 	(setf d (modular-multiplicative-inverse e totient))

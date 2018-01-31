@@ -6,4 +6,4 @@ Load both the prime-numbers.lisp and rsa-kzi.lisp files, as RSA requires helper 
 
 Couple of different RSA functions are defined within the rsa-kzi.lisp file.
 
-Work is still in progress and algorithm certainly needs a few improvements.
+Work is still in progress and algorithm could use a couple of improvements.
